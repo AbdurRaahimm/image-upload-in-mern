@@ -20,7 +20,7 @@ export default function DisplayImage() {
         <div className='grid grid-cols-3 gap-4'>
             {images.map((image) => (
                 <div key={image._id} className='shadow-md p-3 rounded-md'>
-                    <img src={image.imagePath.url} alt={image.title} className='w-full h-64 object-cover rounded-md' />
+                    <img src={image.imagePath.url} alt={image.title} loading="lazy" className='w-full h-64 object-cover rounded-md' />
                     <p className='text-center text-lg font-bold my-2'>{image.title}</p>
                 </div>
             ))}

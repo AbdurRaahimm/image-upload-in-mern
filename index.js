@@ -57,23 +57,23 @@ const upload = multer({
 
 
 app.post('/api/upload', upload.single('image'), async (req, res) => {
-    try {
-        const fileStr = req.file.path;
-        const uploadResponse = await cloudinary.uploader.upload(fileStr, {
+    console.log(req.body);
+    try { 
+        const result = await cloudinary.uploader.upload(req.file.path, {
             folder: 'test',
-            width: 1200,
-            crop: 'scale'
+            // width: 150,
+            // crop: 'scale'
         });
-        console.log(uploadResponse);
+        console.log(result);
         const imageUpload = new ImageUpload({
             title: req.body.title,
             imagePath: {
-                url: uploadResponse.secure_url,
-                public_id: uploadResponse.public_id
+                url: result.secure_url,
+                public_id: result.public_id
             }
         });
         await imageUpload.save();
-        res.json(uploadResponse);
+        res.json(result);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Something went wrong' });
